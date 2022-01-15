@@ -7,7 +7,15 @@
 
 </head>
 <body>
-
+	<nav class="menu">
+		<ul>
+			<?php
+				foreach ($menu as $text => $link) {
+					echo "<li><a href=\"$link\">$text</a></li>";
+				}
+			?>
+		</ul>
+	</nav>
 	<main>
 		<h1><?php echo $title; ?></h1>
 		<?php echo $content; ?>
