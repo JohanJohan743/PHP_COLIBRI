@@ -27,6 +27,7 @@ class View {
 							"Inscription" => $this->router->Inscription(),
 							"Deconnexion" => $this->router->Deconnexion(),
 							"Connection" => $this->router->Connexion(),
+              "Contact" => $this->router->Contact(),
 				);
 		} else {
 				$menu = array(
@@ -118,6 +119,42 @@ class View {
 		$this->content = "Le page demandé n'existe pas.";
 	}
 
+  public function Contact() {
+
+        $this->title = "MON SUPER SITE";
+        $this->content .= "<form method='POST' action=".$this->router->getGestionContactURL().">";
+        $this->content .= "<fieldset>";
+        $this->content .= "<legend>Formulaire de Contact</legend>";
+        $this->content .= "<p>";
+        $this->content .= "<label for='nom'>Nom :</label>";
+        $this->content .= "<input type='text' placeholder='Votre Nom' name='nom' id='nom' value=''/>";
+        $this->content .= "</p>";
+        $this->content .= "<p>";
+        $this->content .= "<label for='prenom'>Prenom :</label>";
+        $this->content .= "<input type='text' placeholder='Votre mail' name='prenom' id='prenom' value=''/>";
+        $this->content .= "</p>";
+        $this->content .= "<p>";
+        $this->content .= "<label for='mail'>Mail :</label>";
+        $this->content .= "<input type='email' placeholder='Votre mail' name='mail' id='mail' value=''/>";
+        $this->content .= "</p>";
+        $this->content .= "<p>";
+        $this->content .= "<label for='sujet'>Sujet :</label>";
+        $this->content .= "<input type='text' placeholder='Sujet du mail' name='sujet' id='sujet' value=''/>";
+        $this->content .= "</p>";
+        $this->content .= "<p>";
+        $this->content .= "<label for='message'>Message :</label>";
+        $this->content .= "<textarea name='message' placeholder='Votre message'></textarea>";
+        $this->content .= "</p>";
+        $this->content .= "<p>";
+        $this->content .= "<input type='submit' name='Contact' value='Valider' />";
+        $this->content .= "</p>";
+        $this->content .= "</fieldset>";
+        if(isset($_SESSION['erreur_contact'])){
+          $this->content .= "<p class = 'erreur'>".$_SESSION['erreur_contact']."</p>";
+        };
+        $this->content .= "</form>";
+
+  }
 }
 
 ?>

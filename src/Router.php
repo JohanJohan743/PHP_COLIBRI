@@ -3,6 +3,8 @@
 require_once("view/View.php");
 require_once("control/Controller.php");
 
+
+
 if (!isset($_SESSION)) { session_start(); };
 
 class Router {
@@ -28,7 +30,15 @@ class Router {
 
 			  $this->controller->deconnexion();
 
-			}  elseif (key_exists('demandeConnexion', $_GET)) {
+			} elseif (key_exists('contact', $_GET)) {
+
+			  $this->view->Contact();
+
+			} elseif (key_exists('demandeContact', $_GET)) {
+
+				$this->controller->contact();
+
+			} elseif (key_exists('demandeConnexion', $_GET)) {
 
 				$this->controller->connexion();
 
@@ -55,6 +65,10 @@ class Router {
 		return ".";
 	}
 
+	public function getInscription() {
+		return "?inscription";
+	}
+
 	public function Connexion(){
 			return "?connexion";
 	}
@@ -67,6 +81,9 @@ class Router {
 			return "?inscription";
 	}
 
+	public function Contact(){
+			return "?contact";
+	}
 
 	public function getGestionConnexionURL(){
 			return "?demandeConnexion";
@@ -76,7 +93,9 @@ class Router {
 			return "?demandeInscription";
 	}
 
-
+	public function getGestionContactURL(){
+			return "?demandeContact";
+	}
 
 }
 
