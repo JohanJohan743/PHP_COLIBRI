@@ -33,7 +33,7 @@ class View {
 				$menu = array(
 							"Accueil" => $this->router->getHomeURL(),
 							"Inscription" => $this->router->Inscription(),
-							"Connection" => $this->router->Connexion(),
+							"Connecxion" => $this->router->Connexion(),
 				);
 		}
 		include("template.php");

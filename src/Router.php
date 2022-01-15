@@ -65,10 +65,6 @@ class Router {
 		return ".";
 	}
 
-	public function getInscription() {
-		return "?inscription";
-	}
-
 	public function Connexion(){
 			return "?connexion";
 	}
