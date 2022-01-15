@@ -1,6 +1,9 @@
 <?php
 
 require_once("view/View.php");
+require_once("control/Controller.php");
+
+if (!isset($_SESSION)) { session_start(); };
 
 class Router {
 
@@ -9,6 +12,7 @@ class Router {
 	public function main() {
 
 		$this->view = new View($this);
+		$this->controller = new Controller();
 
 		try {
 
@@ -19,6 +23,18 @@ class Router {
 			}elseif (key_exists('inscription', $_GET)) {
 
 			  $this->view->Inscription();
+
+			} elseif (key_exists('deconnexion', $_GET)) {
+
+			  $this->controller->deconnexion();
+
+			}  elseif (key_exists('demandeConnexion', $_GET)) {
+
+				$this->controller->connexion();
+
+			} elseif (key_exists('demandeInscription', $_GET)) {
+
+				$this->controller->inscription();
 
 			} else {
 
@@ -43,8 +59,21 @@ class Router {
 			return "?connexion";
 	}
 
+	public function Deconnexion(){
+			return "?deconnexion";
+	}
+
 	public function Inscription(){
 			return "?inscription";
+	}
+
+
+	public function getGestionConnexionURL(){
+			return "?demandeConnexion";
+	}
+
+	public function getGestionInscriptionURL(){
+			return "?demandeInscription";
 	}
 
 

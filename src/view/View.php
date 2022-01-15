@@ -1,5 +1,10 @@
 <?php
 
+require_once("Router.php");
+if (!isset($_SESSION)) {
+	session_start();
+};
+
 class View {
 
 	protected $router;
@@ -16,12 +21,20 @@ class View {
 		$title = $this->title;
 		$content = $this->content;
 
+		if (isset($_SESSION['pseudo'])) {
 				$menu = array(
 							"Accueil" => $this->router->getHomeURL(),
 							"Inscription" => $this->router->Inscription(),
-							"Connexion" => $this->router->Connexion(),
+							"Deconnexion" => $this->router->Deconnexion(),
+							"Connection" => $this->router->Connexion(),
 				);
-
+		} else {
+				$menu = array(
+							"Accueil" => $this->router->getHomeURL(),
+							"Inscription" => $this->router->Inscription(),
+							"Connection" => $this->router->Connexion(),
+				);
+		}
 		include("template.php");
 	}
 
@@ -48,13 +61,16 @@ class View {
 	public function Connexion() {
 
 		$this->title = "MON SUPER SITE";
-		$this->content .= "<form method='POST' action=' '>";
+		$this->content .= "<form method='POST' action=".$this->router->getGestionConnexionURL().">";
 		$this->content .= "<fieldset>";
 		$this->content .= "<legend>Formulaire de connexion</legend>";
 		$this->content .= "<input type='text' name='login' placeholder='Login' required/>";
 		$this->content .= "<input type='password' name='mdp' placeholder='Mot de passe' required/>";
 		$this->content .= "<input type='submit' name='formconnexion' value='Se connecter !' />";
 		$this->content .= "</fieldset>";
+    if(isset($_SESSION['erreur_co'])){
+      $this->content .= "<p class = 'erreur'>".$_SESSION['erreur_co']."</p>";
+    };
 		$this->content .= "</form>";
 
 	}
@@ -63,7 +79,7 @@ class View {
 	public function Inscription(){
 
 		$this->title = "MON SUPER SITE";
-		$this->content .= "<form method='POST' action=''>";
+		$this->content .= "<form method='POST' action=".$this->router->getGestionInscriptionURL().">";
 		$this->content .= "<fieldset>";
 		$this->content .= "<legend>Formulaire d'Inscription</legend>";
 		$this->content .= "<p>";
@@ -90,6 +106,9 @@ class View {
 		$this->content .= "<input type='submit' name='Inscription' value='Inscription' />";
 		$this->content .= "</p>";
 		$this->content .= "</fieldset>";
+    if(isset($_SESSION['erreur'])){
+      $this->content .= "<p class = 'erreur'>".$_SESSION['erreur']."</p>";
+    };
 		$this->content .= "</form>";
 
 	}
